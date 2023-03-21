@@ -1,5 +1,6 @@
 const User = require('../models/usermodel');
 const bcrypt = require('bcrypt');
+const config = require("../config/config");
 const jwt = require('jsonwebtoken');
 exports.createUser = async (req, res) => {
   try {
@@ -8,7 +9,7 @@ exports.createUser = async (req, res) => {
 
     const value={firstName,lastName,email};
     console.log(value);
-    res.status(201).json(value);
+    res.status(201).json({value});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
@@ -37,10 +38,9 @@ exports.loginUser = async (req, res) => {
         return res.status(401).json({ message: 'Invalid email or password' });
       }
       // If the email and password are valid, return a success message and the user object
-      const token = jwt.sign({ userId: user.id }, 'Durai@123$');
+      const token = jwt.sign({ userId: user.id }, config.JWT_SECRET);
 
       // Send the access token and user object back to the client
-      
       res.json({ message: 'Login successful', user, token });
     } catch (error) {
       console.error(error);

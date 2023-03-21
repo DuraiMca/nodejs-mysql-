@@ -5,6 +5,7 @@ module.exports = {
 	USER: process.env.DBUSER,
     PASSWORD: process.env.DBPASSWORD,
     DB: process.env.DBNAME,
+    JWT_SECRET: process.env.JWT_SECRET,
     dialect: "mysql",
     pool: {
       max: 5,
